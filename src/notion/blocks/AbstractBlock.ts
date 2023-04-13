@@ -1,5 +1,4 @@
 import {NotionBlock} from "../NotionTypes";
-import TextFormatter from "../TextFormatter";
 
 export default abstract class AbstractBlock {
   public type: string;
@@ -11,11 +10,11 @@ export default abstract class AbstractBlock {
     this.internal = block;
   }
 
-  public childrenToMarkdown(formatter: TextFormatter): string {
-    return this.children.filter(block => block != null).map(block => block.toMarkdown(formatter)).join("\n");
+  public childrenToMarkdown(): string {
+    return this.children.filter(block => block != null).map(block => block.toMarkdown()).join("\n");
   }
 
-  public abstract toMarkdown(formatter: TextFormatter): string;
+  public abstract toMarkdown(): string;
 
   public visitDeep(visitor: (block) => void) {
     visitor(this);

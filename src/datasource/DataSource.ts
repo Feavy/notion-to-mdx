@@ -13,7 +13,6 @@ export default abstract class DataSource {
   public readonly outputDir: string;
   public readonly basePath: string;
   public readonly cachedPages: Page[] = [];
-  public readonly pages: NotionPage[] = [];
   protected constructor(props: DataSourceProps) {
     this.notion = new Client({ auth: props.notionToken });
     this.id = props.id;
@@ -22,9 +21,9 @@ export default abstract class DataSource {
     this.basePath = props.basePath;
   }
 
-  public abstract fetchPages(): Promise<void>;
+  public abstract fetchPages(): Promise<NotionPage[]>;
 
-  public async getChildrenBlocks(block_id: string): Promise<AbstractBlock[]> {
+  public async fetchChildrenBlocks(block_id: string): Promise<AbstractBlock[]> {
     let response = await this.notion.blocks.children.list({block_id: block_id, page_size: 100});
     const blocks: NotionBlock[] = response.results.filter(block => "type" in block) as NotionBlock[];
     while(response.has_more) {
@@ -33,7 +32,7 @@ export default abstract class DataSource {
     }
     return Promise.all(
         blocks.map(
-            async (block): Promise<AbstractBlock> => Blocks.create(block, block.has_children ? await this.getChildrenBlocks(block.id) : [])
+            async (block): Promise<AbstractBlock> => Blocks.create(block, block.has_children ? await this.fetchChildrenBlocks(block.id) : [])
         )
     );
   }

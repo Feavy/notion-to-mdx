@@ -18,12 +18,12 @@ export default class Image extends AbstractBlock {
     const width = this.image.width;
     const height = this.image.height;
 
-    if(width < 200) {
+    if (width < 200) {
       let content = `<div class="notion-image" style="width: ${width}px; height: ${height}px;">\n\n`;
       content += `![${caption || "image"}](${imageUrl(this.block.image)}${caption ? ` "${caption}"` : ""})\n`;
       content += "</div>\n";
       return content;
-    }else{
+    } else {
       return `![${caption || "image"}](${imageUrl(this.block.image)}${caption ? ` "${caption}"` : ""})\n`;
     }
   }

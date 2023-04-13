@@ -1,13 +1,15 @@
-import downloadImage from '../utils/image';
+import downloadImage from '../utils/downloadImage';
 import NotionPage from './blocks/NotionPage';
 import fs from "fs";
 import Image from "./blocks/Image";
 import {NotionImageFile} from "./NotionTypes";
-import TextFormatter from "./TextFormatter";
+import {icon, imageUrl} from "./TextFormatter";
 
 export default class NotionMarkdownGenerator {
-  public constructor(private page: NotionPage) { }
-  private generateFrontMatter(formatter: TextFormatter) {
+  public constructor(private page: NotionPage) {
+  }
+
+  private generateFrontMatter() {
     let frontMatter = "---\n";
     frontMatter += `created_time: ${this.page.created_time}\n`;
     frontMatter += `last_edited_time: ${this.page.last_edited_time}\n`;
@@ -16,20 +18,20 @@ export default class NotionMarkdownGenerator {
 
     frontMatter += `tags: ${JSON.stringify(this.page.tags)}\n`;
 
-    if(this.page.cover)
-      frontMatter += `cover: ${formatter.imageUrl(this.page.cover) || ""}\n`;
+    if (this.page.cover)
+      frontMatter += `cover: ${imageUrl(this.page.cover) || ""}\n`;
 
-    if(this.page.icon) {
+    if (this.page.icon) {
       const type = this.page.icon.type === "emoji" ? "emoji" : "image";
-      frontMatter += `icon_${type}: ${formatter.icon(this.page.icon)}\n`;
+      frontMatter += `icon_${type}: ${icon(this.page.icon)}\n`;
     }
 
     frontMatter += "---\n";
     return frontMatter;
   }
 
-  private generateContent(formatter: TextFormatter) {
-    return this.page.toMarkdown(formatter);
+  private generateContent() {
+    return this.page.toMarkdown();
   }
 
   private async generateImages() {
@@ -51,17 +53,17 @@ export default class NotionMarkdownGenerator {
     });
   }
 
-  public async generate(formatter: TextFormatter) {
-    fs.mkdirSync(`${this.page.filepath}/images`, { recursive: true });
+  public async generate() {
+    fs.mkdirSync(`${this.page.filepath}/images`, {recursive: true});
     await this.generateImages();
     if (this.page.cover) {
       await this.generateImage("cover", this.page.cover);
     }
     if (this.page.icon && this.page.icon.type !== "emoji") {
-      await this.generateImage("icon", { ...this.page.icon, caption: null });
+      await this.generateImage("icon", {...this.page.icon, caption: null});
     }
 
-    const content = this.generateFrontMatter(formatter) + this.generateContent(formatter);
+    const content = this.generateFrontMatter() + this.generateContent();
     fs.writeFileSync(`${this.page.filepath}/index.md`, content);
   }
 

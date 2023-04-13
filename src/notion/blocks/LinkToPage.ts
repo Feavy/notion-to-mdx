@@ -1,5 +1,6 @@
 import AbstractBlock from "./AbstractBlock";
 import {NotionBlock} from "../NotionTypes";
+import {linkToPage} from "../TextFormatter";
 
 export type NotionLinkToPage = Extract<NotionBlock, { type: 'link_to_page' }>;
 
@@ -13,9 +14,9 @@ export default class LinkToPage extends AbstractBlock {
     }
   }
 
-  public toMarkdown(formatter): string {
+  public toMarkdown(): string {
     if (this.page_id) {
-      return formatter.linkToPage(this.page_id);
+      return linkToPage(this.page_id);
     }
   }
 }

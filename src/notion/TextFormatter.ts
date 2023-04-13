@@ -1,83 +1,61 @@
 import {NotionIcon, NotionImageFile, NotionRichText} from "./NotionTypes";
-import Page from "../model/Page";
-import toMap from "../utils/toMap";
-import NotionPage from "./blocks/NotionPage";
-import exp from "constants";
+import NotionSynchronizer from "../sync/NotionSynchronizer";
+import notionPages = NotionSynchronizer.notionPages;
 
 function escape(str: string) {
   return str.replaceAll(/"/g, '\\"');
 }
 
-export default class TextFormatter {
-  private pages: Map<string, NotionPage>;
+function text(block: NotionRichText): string {
+  let text = block.plain_text;
+  if (block.type === "equation")
+    text = block.equation.expression;
 
-  constructor(pages: NotionPage[]) {
-    this.pages = toMap(pages, "id");
-  }
-
-  private text(block: NotionRichText): string {
-    let text = block.plain_text;
-    if (block.type === "equation")
-      text = block.equation.expression;
-
-    if (block.type === "mention" && block.mention.type === "page") {
-      const page = this.pages.get(block.mention.page.id)
-      if (page) {
-        if (page.icon.type === "emoji" && page.icon.emoji) {
-          text = `${this.icon(page.icon)} ${page.title}`;
-        } else {
-          text = page.title;
-        }
-        return `<PageMention caption="${escape(text)}" url="${page.source.basePath}/${page.slug}"/>`;
-      }
-    }
-
-    if (block.href) {
-      if (block.href.startsWith("https://www.notion.so/") || block.href.startsWith("/")) {
-        const id = block.href.substring(block.href.length - 32, block.href.length);
-        const page = this.pages.get(id);
-        text = page ? `[${text}](${page.source.basePath}/${page.slug})` : `[${text}](${block.href})`;
-      } else {
-        text = `[${text}](${block.href})`;
-      }
-    }
-    if (block.annotations.bold)
-      text = `**${text}**`;
-    if (block.annotations.italic)
-      text = `*${text}*`;
-    if (block.annotations.code)
-      text = `\`${text}\``;
-    if (block.annotations.strikethrough)
-      text = `~~${text}~~`;
-    if (block.type === "equation")
-      text = `$${text}$`;
-
-    return text;
-  }
-
-  public texts(blocks: NotionRichText[]): string {
-    return `${blocks.map(block => this.text(block)).join("")}`;
-  }
-
-  public linkToPage(page_id: string) {
-    const page = this.pages.get(page_id);
+  if (block.type === "mention" && block.mention.type === "page") {
+    const page = notionPages.get(block.mention.page.id)
     if (page) {
-      return `[${page.title}](${page.source.basePath}/${page.slug})\n`;
-    }else{
-      return `Page not found ${page_id}\n`;
+      if (page.icon.type === "emoji" && page.icon.emoji) {
+        text = `${icon(page.icon)} ${page.title}`;
+      } else {
+        text = page.title;
+      }
+      return `<PageMention caption="${escape(text)}" url="${page.source.basePath}/${page.slug}"/>`;
     }
   }
 
-  public plaintexts(blocks: NotionRichText[], indent = ""): string {
-    return plaintexts(blocks, indent);
+  if (block.href) {
+    if (block.href.startsWith("https://www.notion.so/") || block.href.startsWith("/")) {
+      const id = block.href.substring(block.href.length - 32, block.href.length);
+      const page = notionPages.get(id);
+      text = page ? `[${text}](${page.source.basePath}/${page.slug})` : `[${text}](${block.href})`;
+    } else {
+      text = `[${text}](${block.href})`;
+    }
   }
+  if (block.annotations.bold)
+    text = `**${text}**`;
+  if (block.annotations.italic)
+    text = `*${text}*`;
+  if (block.annotations.code)
+    text = `\`${text}\``;
+  if (block.annotations.strikethrough)
+    text = `~~${text}~~`;
+  if (block.type === "equation")
+    text = `$${text}$`;
 
-  public imageUrl(image: NotionImageFile) {
-    return imageUrl(image);
-  }
+  return text;
+}
 
-  public icon(icon_: NotionIcon) {
-    return icon(icon_);
+export function texts(blocks: NotionRichText[]): string {
+  return `${blocks.map(block => text(block)).join("")}`;
+}
+
+export function linkToPage(page_id: string) {
+  const page = notionPages.get(page_id);
+  if (page) {
+    return `[${page.title}](${page.source.basePath}/${page.slug})\n`;
+  } else {
+    return `Page not found ${page_id}\n`;
   }
 }
 

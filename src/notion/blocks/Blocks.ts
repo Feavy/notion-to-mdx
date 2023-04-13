@@ -48,7 +48,7 @@ export default class Blocks {
 
   public static create(block: NotionBlock, children: AbstractBlock[]): AbstractBlock {
     const ctor = Blocks.blocks.get(block.type);
-    if(!ctor) {
+    if (!ctor) {
       console.log("Unknown block type: " + block.type);
       return new DefaultBlock(block, children);
     }

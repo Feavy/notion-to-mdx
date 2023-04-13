@@ -2,8 +2,8 @@ import {NotionIcon, NotionImageFile} from "../NotionTypes";
 import AbstractBlock from "./AbstractBlock";
 import Page from "../../model/Page";
 import type DataSource from "../../datasource/DataSource";
-import {plaintexts} from "../TextFormatter";
 import toSlug from "../../utils/toSlug";
+import {plaintexts} from "../TextFormatter";
 
 export default class NotionPage extends AbstractBlock implements Page {
   created_time: string;
@@ -18,7 +18,7 @@ export default class NotionPage extends AbstractBlock implements Page {
   filepath: string;
 
   public constructor(page: any, public readonly source: DataSource) {
-    super(page,  [])
+    super(page, [])
     Object.assign(this, page);
 
     this.title = plaintexts(this.properties.Name.title);
@@ -33,7 +33,7 @@ export default class NotionPage extends AbstractBlock implements Page {
       this.tags = [];
     }
 
-    if(this.properties.created_date.date) {
+    if (this.properties.created_date.date) {
       this.created_time = this.properties.created_date.date.start;
     }
 
@@ -48,12 +48,12 @@ export default class NotionPage extends AbstractBlock implements Page {
     return this.children;
   }
 
-  public toMarkdown(formatter) {
-    return this.childrenToMarkdown(formatter);
+  public toMarkdown() {
+    return this.childrenToMarkdown();
   }
 
   async fetchChildrenBlocks() {
-    this.blocks = await this.source.getChildrenBlocks(this.id);
+    this.blocks = await this.source.fetchChildrenBlocks(this.id);
   }
 
   public toJSON(): Omit<Page, "source"> {

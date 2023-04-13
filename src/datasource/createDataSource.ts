@@ -1,11 +1,10 @@
 import DataSourceProps from "./DataSourceProps";
 import DatabaseSource from "./DatabaseSource";
-import Page from "../model/Page";
 
-export default function createDataSource(props: DataSourceProps, cache: Page[]) {
+export default function createDataSource(props: DataSourceProps) {
   switch (props.type) {
     case "database":
-      return new DatabaseSource(props, cache);
+      return new DatabaseSource(props);
     case "page":
       return null;
   }

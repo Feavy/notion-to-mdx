@@ -9,14 +9,14 @@ export default class ColumnList extends AbstractBlock {
     super(block, children);
   }
 
-  public toMarkdown(formatter): string {
+  public toMarkdown(): string {
     let ret = "<div class=\"columns\">\n";
-    for(const column of this.children) {
+    for (const column of this.children) {
       const isIcon = column.children.length === 1 && column.children[0] instanceof Image && column.children[0].image.width <= 200;
-      if(isIcon) {
-        ret += `<div class="column column-icon">\n\n${column.toMarkdown(formatter)}\n</div>\n`;
-      }else{
-        ret += `<div class="column">\n\n${column.toMarkdown(formatter)}\n</div>\n`;
+      if (isIcon) {
+        ret += `<div class="column column-icon">\n\n${column.toMarkdown()}\n</div>\n`;
+      } else {
+        ret += `<div class="column">\n\n${column.toMarkdown()}\n</div>\n`;
       }
     }
     ret += "</div>\n";

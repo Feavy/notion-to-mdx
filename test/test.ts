@@ -1,9 +1,8 @@
 import * as dotenv from "dotenv"
+import synchronizeNotionPages from "../src";
 dotenv.config()
 
-import generateNotionPages from "./index";
-
-generateNotionPages([
+synchronizeNotionPages([
   {
     notionToken: process.env.NOTION_TOKEN,
     type: "database",
