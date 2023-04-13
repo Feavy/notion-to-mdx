@@ -1,6 +1,6 @@
 {
-  "name": "notion-to-gatsby",
-  "version": "1.0.0",
+  "name": "notion-to-mdx",
+  "version": "0.0.1",
   "description": "Generate markdown pages from notion",
   "main": "dist/index.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Feavy/notion-to-gatsby.git"
+    "url": "git+https://github.com/Feavy/notion-to-mdx.git"
   },
   "author": "Feavy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Feavy/notion-to-gatsby/issues"
+    "url": "https://github.com/Feavy/notion-to-mdx/issues"
   },
-  "homepage": "https://github.com/Feavy/notion-to-gatsby#readme",
+  "homepage": "https://github.com/Feavy/notion-to-mdx#readme",
   "dependencies": {
     "@notionhq/client": "^2.2.4",
     "@types/node": "^18.15.11",
