@@ -1,6 +1,6 @@
 import {NotionIcon, NotionImageFile, NotionRichText} from "./NotionTypes";
-import NotionSynchronizer from "../sync/NotionSynchronizer";
-import notionPages = NotionSynchronizer.notionPages;
+import PagesManager from "../sync/PagesManager";
+import notionPages = PagesManager.notionPages;
 
 function escape(str: string) {
   return str.replaceAll(/"/g, '\\"');

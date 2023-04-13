@@ -7,7 +7,7 @@ import DataSource from "../datasource/DataSource";
 import {toMultimap} from "../utils/toMap";
 import NotionMarkdownGenerator from "../notion/NotionMarkdownGenerator";
 
-namespace NotionSynchronizer {
+namespace PagesManager {
   const CACHE_FILE = "notion_cache.json";
 
   let dataSources: DataSource[] = [];
@@ -78,4 +78,4 @@ namespace NotionSynchronizer {
   }
 }
 
-export default NotionSynchronizer;
+export default PagesManager;

@@ -1,12 +1,12 @@
 import DataSourceProps from "./datasource/DataSourceProps";
-import NotionSynchronizer from "./sync/NotionSynchronizer";
-import notionPages = NotionSynchronizer.notionPages;
-import localPages = NotionSynchronizer.localPages;
-import generatePage = NotionSynchronizer.generatePage;
-import deletePage = NotionSynchronizer.deletePage;
-import hasUpdate = NotionSynchronizer.hasUpdate;
-import saveCache = NotionSynchronizer.saveCache;
-import loadNotionSources = NotionSynchronizer.loadNotionSources;
+import PagesManager from "./sync/PagesManager";
+import notionPages = PagesManager.notionPages;
+import localPages = PagesManager.localPages;
+import generatePage = PagesManager.generatePage;
+import deletePage = PagesManager.deletePage;
+import hasUpdate = PagesManager.hasUpdate;
+import saveCache = PagesManager.saveCache;
+import loadNotionSources = PagesManager.loadNotionSources;
 
 export default function synchronizeNotionPages(sources: DataSourceProps[]) {
     (async () => {
