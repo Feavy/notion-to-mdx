@@ -1,9 +1,9 @@
 import {NotionIcon, NotionImageFile} from "../NotionTypes";
 import AbstractBlock from "./AbstractBlock";
-import {toSlug} from "../../pages/utils";
 import Page from "../../model/Page";
 import type DataSource from "../../datasource/DataSource";
 import {plaintexts} from "../TextFormatter";
+import toSlug from "../../utils/toSlug";
 
 export default class NotionPage extends AbstractBlock implements Page {
   created_time: string;
