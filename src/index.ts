@@ -6,11 +6,11 @@ import generatePage = PagesManager.generatePage;
 import deletePage = PagesManager.deletePage;
 import hasUpdate = PagesManager.hasUpdate;
 import saveCache = PagesManager.saveCache;
-import loadNotionSources = PagesManager.loadNotionSources;
+import loadPages = PagesManager.loadPages;
 
 export default function synchronizeNotionPages(sources: DataSourceProps[]) {
     (async () => {
-        await loadNotionSources(sources);
+        await loadPages(sources);
 
         const promises: Promise<any>[] = [];
 

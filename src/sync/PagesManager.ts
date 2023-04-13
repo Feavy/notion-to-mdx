@@ -14,7 +14,7 @@ namespace PagesManager {
   export const notionPages: Map<string, NotionPage> = new Map();
   export const localPages: Map<string, Page> = new Map();
 
-  export async function loadNotionSources(sources: DataSourceProps[]) {
+  export async function loadPages(sources: DataSourceProps[]) {
     dataSources = sources.map(source => createDataSource(source));
 
     loadCachedPages();
