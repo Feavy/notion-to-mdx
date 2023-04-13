@@ -1,6 +1,6 @@
 {
   "name": "notion-to-mdx",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate markdown pages from notion",
   "main": "dist/index.js",
   "scripts": {
