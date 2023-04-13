@@ -10,8 +10,8 @@ export default class Code extends AbstractBlock {
 
   public toMarkdown(formatter): string {
     return `\`\`\`${this.block.code.language.replace("plain text", "")}
-    ${formatter.texts(this.block.code.rich_text)}
-    \`\`\`
+${formatter.texts(this.block.code.rich_text)}
+\`\`\`
     `;
   }
 }
