@@ -1,2 +1,3 @@
-# notion-to-gatsby
-Generate markdown articles in Gatsby from notion pages
+# notion-to-mdx [WIP]
+
+Generate MarkdownX articles from Notion pages.
