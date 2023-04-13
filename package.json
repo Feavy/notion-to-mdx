@@ -1,0 +1,31 @@
+{
+  "name": "notion-to-gatsby",
+  "version": "1.0.0",
+  "description": "Generate markdown pages from notion",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "ts-node ./src/test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Feavy/notion-to-gatsby.git"
+  },
+  "author": "Feavy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Feavy/notion-to-gatsby/issues"
+  },
+  "homepage": "https://github.com/Feavy/notion-to-gatsby#readme",
+  "dependencies": {
+    "@notionhq/client": "^2.2.4",
+    "@types/node": "^18.15.11",
+    "dotenv": "^16.0.3",
+    "download": "^8.0.0",
+    "image-size": "^1.0.2",
+    "image-type": "4.1.0",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
