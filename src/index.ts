@@ -1,14 +1,18 @@
-import DataSourceProps from "./datasource/DataSourceProps";
-import PagesManager from "./sync/PagesManager";
-import notionPages = PagesManager.notionPages;
-import localPages = PagesManager.localPages;
+import PagesManager from "./PagesManager";
 import generatePage = PagesManager.generatePage;
 import deletePage = PagesManager.deletePage;
 import hasUpdate = PagesManager.hasUpdate;
 import saveCache = PagesManager.saveCache;
 import loadPages = PagesManager.loadPages;
 
-export default function synchronizeNotionPages(sources: DataSourceProps[]) {
+import LoadedPages from "./LoadedPages";
+import notionPages = LoadedPages.notionPages;
+import localPages = LoadedPages.localPages;
+
+import NotionSourceProps from "./notion/source/NotionSourceProps";
+
+
+export default function synchronizeNotionPages(sources: NotionSourceProps[]) {
     (async () => {
         await loadPages(sources);
 
