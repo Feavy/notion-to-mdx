@@ -1,5 +1,7 @@
 # notion-to-mdx [WIP]
 
+[![npm version](https://badge.fury.io/js/notion-to-mdx.svg)](https://badge.fury.io/js/notion-to-mdx)
+
 Generate MarkdownX articles from Notion pages.
 
 This project aims to synchronize remote pages on Notion with local MarkdownX files:
