@@ -25,7 +25,7 @@ It was mainly designed so that the generated files can be processed by the [mdx]
 ## Usage
 
 ```js
-import synchronizeNotionPages from "../src";
+import synchronizeNotionPages from "notion-to-mdx";
 
 synchronizeNotionPages([
   {
