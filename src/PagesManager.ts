@@ -7,6 +7,7 @@ import NotionSource from "./notion/source/NotionSource";
 import NotionSourceProps from "./notion/source/NotionSourceProps";
 import createNotionSource from "./notion/source/createNotionSource";
 import LoadedPages from "./LoadedPages";
+import {PAGE_VERSION} from "./Config";
 
 namespace PagesManager {
   import notionPages = LoadedPages.notionPages;
@@ -26,7 +27,7 @@ namespace PagesManager {
   }
 
   export function hasUpdate(localPage: Page, remotePage: NotionPage) {
-    return localPage.last_edited_time !== remotePage.last_edited_time;
+    return localPage.last_edited_time !== remotePage.last_edited_time || localPage.version !== PAGE_VERSION;
   }
 
   export async function generatePage(page: NotionPage) {

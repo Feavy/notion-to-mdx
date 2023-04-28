@@ -4,6 +4,7 @@ import Page from "../../../model/Page";
 import {NotionIcon, NotionImageFile} from "../../types/NotionTypes";
 import toSlug from "../../../utils/toSlug";
 import NotionSource from "../../source/NotionSource";
+import {PAGE_VERSION} from "../../../Config";
 
 export default class NotionPage extends AbstractBlock implements Page {
   created_time: string;
@@ -61,6 +62,7 @@ export default class NotionPage extends AbstractBlock implements Page {
       id: this.id,
       last_edited_time: this.last_edited_time,
       slug: this.slug,
+      version: PAGE_VERSION,
     }
   }
 };

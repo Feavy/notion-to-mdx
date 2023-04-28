@@ -10,7 +10,9 @@ import notionPages = LoadedPages.notionPages;
 import localPages = LoadedPages.localPages;
 
 import NotionSourceProps from "./notion/source/NotionSourceProps";
+import {PAGE_VERSION} from "./Config";
 
+console.log(`notion-to-mdx page_version=${PAGE_VERSION}`);
 
 export default function synchronizeNotionPages(sources: NotionSourceProps[]) {
     (async () => {
